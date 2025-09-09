@@ -1,0 +1,34 @@
+# Compilados de Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.dll
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Archivos de logs
+logs/
+*.log
+
+
+# Configuraciones de IDEs/editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de distribución/compilación
+dist/
+build/
+*.egg-info/
+

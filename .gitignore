@@ -16,7 +16,7 @@ dist/
 # Archivos de logs
 logs/
 *.log
-
+inventario-linux
 
 # Configuraciones de IDEs/editores
 .vscode/

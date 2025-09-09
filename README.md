@@ -4,7 +4,7 @@ Esta aplicación de escritorio está desarrollada en Python usando el framework 
 
 _________________________________________
 <p align="center">
-  <img rc="https://github.com/user-attachments/assets/ffb71ce1-9378-40e6-9576-238254822c47" width="250">
+  <img src="https://github.com/user-attachments/assets/ffb71ce1-9378-40e6-9576-238254822c47" width="250">
   <img src="https://github.com/user-attachments/assets/27fdf612-941b-45a8-b768-ed618a6bd411" width="250">
   <img src="https://github.com/user-attachments/assets/070eadbe-5cd8-4747-99e2-7c4631ebc8bb" width="250">
 </p>

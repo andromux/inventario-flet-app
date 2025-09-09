@@ -2,6 +2,14 @@
 
 Esta aplicación de escritorio está desarrollada en Python usando el framework Flet para gestionar inventarios de productos, procesar ventas y generar reportes.
 
+_________________________________________
+<p align="center">
+  <img rc="https://github.com/user-attachments/assets/ffb71ce1-9378-40e6-9576-238254822c47" width="250">
+  <img src="https://github.com/user-attachments/assets/27fdf612-941b-45a8-b768-ed618a6bd411" width="250">
+  <img src="https://github.com/user-attachments/assets/070eadbe-5cd8-4747-99e2-7c4631ebc8bb" width="250">
+</p>
+__________________________________________
+
 ## Nivel Técnico
 
 ### Arquitectura del Sistema
@@ -14,7 +22,7 @@ La aplicación sigue un patrón de arquitectura por capas con inyección de depe
 
 ### Inicialización de la Aplicación
 
-El punto de entrada configura la ventana principal con dimensiones específicas y inicializa todos los servicios [3](#0-2) . La aplicación maneja errores críticos durante la inicialización y muestra mensajes informativos al usuario.
+El punto de entrada configura la ventana principal con dimensiones específicas y inicializa todos los servicios. La aplicación maneja errores críticos durante la inicialización y muestra mensajes informativos al usuario.
 
 ### Navegación Principal
 

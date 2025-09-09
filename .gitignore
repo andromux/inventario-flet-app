@@ -6,12 +6,13 @@ __pycache__/
 *.pdb
 *.so
 *.dll
-
+main.spec
 # Entornos virtuales
 .venv/
 venv/
 env/
-
+build/
+dist/
 # Archivos de logs
 logs/
 *.log

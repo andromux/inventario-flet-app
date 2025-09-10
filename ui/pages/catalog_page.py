@@ -83,33 +83,41 @@ class CatalogPage(ft.Column):
         self.update()
 
     async def add_product(self, e):
-        name = self.product_name.value
+        # Validación: El nombre del producto no puede estar vacío
+        if not self.product_name.value:
+            self.page.overlay.append(ft.SnackBar(ft.Text("El nombre del producto no puede estar vacío.")))
+            self.page.update()
+            return
+
         try:
-            cost = float(self.product_cost.value)
-            price = float(self.product_price.value)
-            stock = int(self.product_stock.value)
+            # Manejo de formatos de números, eliminando comas
+            cost_str = self.product_cost.value.replace(',', '')
+            price_str = self.product_price.value.replace(',', '')
+            stock_str = self.product_stock.value.replace(',', '')
+
+            cost = float(cost_str)
+            price = float(price_str)
+            stock = int(stock_str)
             
-            self.inventory_service.add_product(name, cost, price, stock)
+            self.inventory_service.add_product(self.product_name.value, cost, price, stock)
             self.load_table()
             
-            # Corrección: Añade el SnackBar al overlay y llama a update()
-            success_snack = ft.SnackBar(
-                content=ft.Text(f"Producto '{name}' agregado."),
-                open=True
+            # Muestra el mensaje de éxito
+            self.page.overlay.append(
+                ft.SnackBar(content=ft.Text(f"Producto '{self.product_name.value}' agregado exitosamente."), open=True)
             )
-            self.page.overlay.append(success_snack)
-            self.page.update()
             
+            # Limpia los campos
             self.product_name.value = ""
             self.product_cost.value = "0.00"
             self.product_price.value = "0.00"
             self.product_stock.value = "0"
-            self.update()
+
+            self.page.update()
 
         except ValueError:
-            # Corrección: Añade el SnackBar de error al overlay y llama a update()
-            error_snack = ft.SnackBar(
-                content=ft.Text("Error en los valores. Asegúrate de que sean números.")
+            # Muestra un mensaje de error específico
+            self.page.overlay.append(
+                ft.SnackBar(content=ft.Text("Error en los valores. Asegúrate de que costo, precio y stock sean números válidos."))
             )
-            self.page.overlay.append(error_snack)
             self.page.update()

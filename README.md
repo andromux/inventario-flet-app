@@ -8,6 +8,12 @@ _________________________________________
   <img src="https://github.com/user-attachments/assets/27fdf612-941b-45a8-b768-ed618a6bd411" width="250">
   <img src="https://github.com/user-attachments/assets/070eadbe-5cd8-4747-99e2-7c4631ebc8bb" width="250">
 </p>
+
+
+https://github.com/user-attachments/assets/276346ab-01c9-4dbd-a3d3-2a0284fe7488
+
+
+
 __________________________________________
 
 ## Nivel Técnico

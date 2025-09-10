@@ -1,4 +1,6 @@
 import uuid
+import os
+import json
 from typing import List, Dict, Optional
 from models.product import Product
 from storage.base_storage import BaseStorage
@@ -24,12 +26,13 @@ class InventoryService:
 
     def save_products(self):
         """Guarda los productos en el almacenamiento."""
+        logger.info(f"InventoryService: Intentando guardar {len(self._products)} productos.")
         try:
             products_data = [p.to_dict() for p in self._products.values()]
             self._storage.save_products(products_data)
-            logger.info("Productos guardados.")
+            logger.info("InventoryService: Productos guardados exitosamente.")
         except Exception as e:
-            logger.error(f"Error al guardar productos: {e}")
+            logger.error(f"InventoryService: Error al guardar productos: {e}")
 
     def get_all_products(self) -> List[Product]:
         return list(self._products.values())

@@ -1,5 +1,4 @@
 import flet as ft
-import asyncio
 from services.inventory_service import InventoryService
 from models.product import Product
 from utils.logger import get_logger
@@ -29,7 +28,8 @@ class CatalogPage(ft.Column):
                 ft.DataColumn(ft.Text("Nombre")),
                 ft.DataColumn(ft.Text("Costo")),
                 ft.DataColumn(ft.Text("Precio")),
-                ft.DataColumn(ft.Text("Stock"))
+                ft.DataColumn(ft.Text("Stock")),
+                ft.DataColumn(ft.Text("Acciones")), # Nueva columna para acciones
             ],
             rows=[]
         )
@@ -76,13 +76,27 @@ class CatalogPage(ft.Column):
                         ft.DataCell(ft.Text(p.name)),
                         ft.DataCell(ft.Text(f"${p.cost:.2f}")),
                         ft.DataCell(ft.Text(f"${p.price:.2f}")),
-                        ft.DataCell(ft.Text(str(p.stock)))
+                        ft.DataCell(ft.Text(str(p.stock))),
+                        ft.DataCell(
+                            ft.Row([
+                                ft.IconButton(
+                                    icon=ft.Icons.EDIT,
+                                    tooltip="Editar",
+                                    on_click=lambda e, product_id=p.id: self.edit_product(product_id)
+                                ),
+                                ft.IconButton(
+                                    icon=ft.Icons.DELETE,
+                                    tooltip="Eliminar",
+                                    on_click=lambda e, product_id=p.id: self.delete_product(product_id)
+                                )
+                            ])
+                        )
                     ]
                 )
             )
         self.update()
 
-    async def add_product(self, e):
+    def add_product(self, e):
         # Validación: El nombre del producto no puede estar vacío
         if not self.product_name.value:
             self.page.overlay.append(ft.SnackBar(ft.Text("El nombre del producto no puede estar vacío.")))
@@ -121,3 +135,111 @@ class CatalogPage(ft.Column):
                 ft.SnackBar(content=ft.Text("Error en los valores. Asegúrate de que costo, precio y stock sean números válidos."))
             )
             self.page.update()
+            
+    def edit_product(self, product_id: str):
+        logger.info(f"Intentando editar producto con ID: {product_id}")
+        product = self.inventory_service.get_product(product_id)
+        if not product:
+            logger.warning(f"Producto no encontrado: {product_id}")
+            self.page.overlay.append(ft.SnackBar(ft.Text("Producto no encontrado.")))
+            self.page.update()
+            return
+        
+        edit_name = ft.TextField(label="Nombre", value=product.name)
+        edit_cost = ft.TextField(label="Costo", value=str(product.cost))
+        edit_price = ft.TextField(label="Precio", value=str(product.price))
+        edit_stock = ft.TextField(label="Stock", value=str(product.stock))
+        
+        def save_changes(e):
+            try:
+                name = edit_name.value
+                cost = float(edit_cost.value.replace(',', ''))
+                price = float(edit_price.value.replace(',', ''))
+                stock = int(edit_stock.value.replace(',', ''))
+                
+                logger.info(f"Guardando cambios para producto '{product.name}' (ID: {product_id})")
+                
+                if self.inventory_service.update_product(
+                    product_id,
+                    name=name,
+                    cost=cost,
+                    price=price,
+                    stock=stock
+                ):
+                    self.load_table()
+                    self.page.overlay.append(ft.SnackBar(ft.Text(f"Producto '{name}' actualizado.")))
+                    logger.info("Producto actualizado exitosamente.")
+                else:
+                    self.page.overlay.append(ft.SnackBar(ft.Text("Error al actualizar producto.")))
+                    logger.error("El servicio de inventario regresó 'False' al intentar actualizar.")
+            except ValueError:
+                self.page.overlay.append(ft.SnackBar(ft.Text("Error en los valores. Verifica que sean números válidos.")))
+                logger.error("Error de ValueError al procesar campos.")
+            
+            self.page.dialog.open = False
+            self.page.update()
+        
+        def cancel_edit(e):
+            self.page.dialog.open = False
+            self.page.update()
+        
+        dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Editar Producto"),
+            content=ft.Column([
+                edit_name,
+                edit_cost,
+                edit_price,
+                edit_stock
+            ], tight=True),
+            actions=[
+                ft.TextButton("Cancelar", on_click=cancel_edit),
+                ft.TextButton("Guardar", on_click=save_changes),
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+        
+        self.page.dialog = dialog
+        dialog.open = True
+        self.page.update()
+
+    def delete_product(self, product_id: str):
+        logger.info(f"Intentando eliminar producto con ID: {product_id}")
+        product = self.inventory_service.get_product(product_id)
+        if not product:
+            logger.warning(f"Producto no encontrado: {product_id}")
+            self.page.overlay.append(ft.SnackBar(ft.Text("Producto no encontrado.")))
+            self.page.update()
+            return
+            
+        def confirm_delete(e):
+            logger.info(f"Confirmando eliminación de '{product.name}' (ID: {product_id})")
+            if self.inventory_service.delete_product(product_id):
+                self.load_table()
+                self.page.overlay.append(ft.SnackBar(ft.Text(f"Producto '{product.name}' eliminado.")))
+                logger.info("Producto eliminado exitosamente.")
+            else:
+                self.page.overlay.append(ft.SnackBar(ft.Text("Error al eliminar producto.")))
+                logger.error("El servicio de inventario regresó 'False' al intentar eliminar.")
+                
+            self.page.dialog.open = False
+            self.page.update()
+            
+        def cancel_delete(e):
+            self.page.dialog.open = False
+            self.page.update()
+            
+        dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Confirmar eliminación"),
+            content=ft.Text(f"¿Estás seguro de que quieres eliminar '{product.name}'?"),
+            actions=[
+                ft.TextButton("Cancelar", on_click=cancel_delete),
+                ft.TextButton("Eliminar", on_click=confirm_delete),
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+        
+        self.page.dialog = dialog
+        dialog.open = True
+        self.page.update()

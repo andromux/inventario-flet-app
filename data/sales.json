@@ -90,5 +90,22 @@
                 "subtotal": 1221.22
             }
         ]
+    },
+    {
+        "id": "a0859887-4314-4b70-9dbe-c08e2f26fb81",
+        "timestamp": "2025-09-10T16:00:52.325959",
+        "total_revenue": 430.0,
+        "total_cost": 200.0,
+        "total_profit": 230.0,
+        "items": [
+            {
+                "product_id": "95f82ac9-8a0c-4368-9ff5-e9d8305c0e0f",
+                "name": "Kakarotto",
+                "quantity": 1,
+                "price": 430.0,
+                "cost": 200.0,
+                "subtotal": 430.0
+            }
+        ]
     }
 ]

@@ -40,5 +40,12 @@
         "cost": 23.0,
         "price": 938.0,
         "stock": 97
+    },
+    {
+        "id": "95f82ac9-8a0c-4368-9ff5-e9d8305c0e0f",
+        "name": "Kakarotto",
+        "cost": 200.0,
+        "price": 430.0,
+        "stock": 99
     }
 ]

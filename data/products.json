@@ -1,1 +1,37 @@
-[]
+[
+    {
+        "id": "6074cf6a-c66f-41b2-b002-c0141d61c993",
+        "name": "Prueba1",
+        "cost": 121.0,
+        "price": 343.0,
+        "stock": 8
+    },
+    {
+        "id": "e715a24a-4ceb-41b9-b278-4e626a0da2e9",
+        "name": "",
+        "cost": 0.0,
+        "price": 0.0,
+        "stock": 0
+    },
+    {
+        "id": "c8ba5dd8-424e-408e-be8b-05efd77c4b26",
+        "name": "Tostadora",
+        "cost": 222.0,
+        "price": 333.0,
+        "stock": 4
+    },
+    {
+        "id": "26161495-049a-4d96-90c8-5878653cf185",
+        "name": "tele",
+        "cost": 123.21,
+        "price": 1221.22,
+        "stock": 3
+    },
+    {
+        "id": "0207c959-a614-40f7-a914-dd21f47ed6c4",
+        "name": "",
+        "cost": 0.0,
+        "price": 0.0,
+        "stock": 0
+    }
+]

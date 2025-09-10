@@ -92,7 +92,13 @@ class CatalogPage(ft.Column):
             self.inventory_service.add_product(name, cost, price, stock)
             self.load_table()
             
-            self.page.show_snack_bar(ft.SnackBar(ft.Text(f"Producto '{name}' agregado."), open=True))
+            # Corrección: Añade el SnackBar al overlay y llama a update()
+            success_snack = ft.SnackBar(
+                content=ft.Text(f"Producto '{name}' agregado."),
+                open=True
+            )
+            self.page.overlay.append(success_snack)
+            self.page.update()
             
             self.product_name.value = ""
             self.product_cost.value = "0.00"
@@ -101,4 +107,9 @@ class CatalogPage(ft.Column):
             self.update()
 
         except ValueError:
-            self.page.show_snack_bar(ft.SnackBar(ft.Text("Error en los valores. Asegúrate de que sean números.", color="red"), open=True))
+            # Corrección: Añade el SnackBar de error al overlay y llama a update()
+            error_snack = ft.SnackBar(
+                content=ft.Text("Error en los valores. Asegúrate de que sean números.")
+            )
+            self.page.overlay.append(error_snack)
+            self.page.update()

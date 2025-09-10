@@ -1,1 +1,44 @@
-[]
+[
+    {
+        "id": "e661d1b9-1806-4131-80dd-85186ed75be8",
+        "timestamp": "2025-09-09T22:43:31.337011",
+        "total_revenue": 343.0,
+        "total_cost": 121.0,
+        "total_profit": 222.0,
+        "items": [
+            {
+                "product_id": "6074cf6a-c66f-41b2-b002-c0141d61c993",
+                "name": "Prueba1",
+                "quantity": 1,
+                "price": 343.0,
+                "cost": 121.0,
+                "subtotal": 343.0
+            }
+        ]
+    },
+    {
+        "id": "da6aa48b-4706-42e1-924d-f266e5a54acb",
+        "timestamp": "2025-09-09T22:44:15.522557",
+        "total_revenue": 676.0,
+        "total_cost": 343.0,
+        "total_profit": 333.0,
+        "items": [
+            {
+                "product_id": "6074cf6a-c66f-41b2-b002-c0141d61c993",
+                "name": "Prueba1",
+                "quantity": 1,
+                "price": 343.0,
+                "cost": 121.0,
+                "subtotal": 343.0
+            },
+            {
+                "product_id": "c8ba5dd8-424e-408e-be8b-05efd77c4b26",
+                "name": "Tostadora",
+                "quantity": 1,
+                "price": 333.0,
+                "cost": 222.0,
+                "subtotal": 333.0
+            }
+        ]
+    }
+]

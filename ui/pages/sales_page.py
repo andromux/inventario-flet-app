@@ -58,7 +58,8 @@ class SalesPage(ft.Column):
             product = self.inventory_service.get_product(product_id)
             
             if not product or product.stock < quantity or quantity <= 0:
-                self.page.show_snack_bar(ft.SnackBar(ft.Text("Cantidad inválida o stock insuficiente.", color="red"), open=True))
+                self.page.overlay.append(ft.SnackBar(ft.Text("Cantidad inválida o stock insuficiente.")))
+                self.page.update()
                 return
             
             item_found = False
@@ -74,7 +75,8 @@ class SalesPage(ft.Column):
             self.render_cart()
             self.quantity_field.value = "1"
         except (ValueError, TypeError):
-            self.page.show_snack_bar(ft.SnackBar(ft.Text("Selecciona un producto y una cantidad válida.", color="red"), open=True))
+            self.page.overlay.append(ft.SnackBar(ft.Text("Selecciona un producto y una cantidad válida.")))
+            self.page.update()
         
         self.update()
         
@@ -96,16 +98,19 @@ class SalesPage(ft.Column):
 
     async def checkout(self, e):
         if not self.cart:
-            self.page.show_snack_bar(ft.SnackBar(ft.Text("El carrito está vacío.", color="red"), open=True))
+            self.page.overlay.append(ft.SnackBar(ft.Text("El carrito está vacío.")))
+            self.page.update()
             return
             
-        sale = await self.page.run_task(lambda: self.sales_service.record_sale(self.cart))
+        # Corrección: Llamada directa al método síncrono
+        sale = self.sales_service.record_sale(self.cart)
         
         if sale:
             self.cart.clear()
             self.render_cart()
-            self.page.show_snack_bar(ft.SnackBar(ft.Text("Venta registrada exitosamente."), open=True))
+            self.page.overlay.append(ft.SnackBar(ft.Text("Venta registrada exitosamente.")))
         else:
-            self.page.show_snack_bar(ft.SnackBar(ft.Text("Error al registrar la venta."), open=True))
+            self.page.overlay.append(ft.SnackBar(ft.Text("Error al registrar la venta.")))
         
+        self.page.update()
         self.update()

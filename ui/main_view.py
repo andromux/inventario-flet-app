@@ -22,7 +22,7 @@ class MainView(ft.Column):
         }
         self.current_page = self.pages["Catálogo"]
         
-        # CAMBIO: Usamos ft.NavigationBar para la navegación horizontal en la parte superior
+        # Se usa ft.NavigationBar para la navegación horizontal en la parte inferior.
         self.navigation_bar = ft.NavigationBar(
             selected_index=0,
             destinations=[
@@ -50,7 +50,6 @@ class MainView(ft.Column):
             expand=True,
             alignment=ft.MainAxisAlignment.START,
         )
-
         
         self.controls = [
             self.navigation_bar,
@@ -59,8 +58,7 @@ class MainView(ft.Column):
         ]
 
     def handle_navigation_change(self, e: ft.ControlEvent):
-        """Maneja la navegación entre páginas."""
-        # Se obtiene el índice seleccionado de la barra de navegación
+        """Maneja la navegación entre páginas y refresca la vista."""
         page_index = e.control.selected_index
         page_name = list(self.pages.keys())[page_index]
 
@@ -69,6 +67,11 @@ class MainView(ft.Column):
         self.page_container.update()
         
         self.current_page = self.pages[page_name]
+        
+        # Llama a un método de refresco si existe
+        if hasattr(self.current_page, 'refresh_products'):
+            self.current_page.refresh_products()
+        
         self.page_container.controls.append(self.current_page)
         
         self.page_container.opacity = 1

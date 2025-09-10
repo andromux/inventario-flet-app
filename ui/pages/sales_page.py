@@ -8,7 +8,7 @@ logger = get_logger()
 
 class SalesPage(ft.Column):
     def __init__(self, inventory_service: InventoryService, sales_service: SalesService, page: ft.Page):
-        super().__init__()
+        super().__init__(expand=True)
         self.inventory_service = inventory_service
         self.sales_service = sales_service
         self.page = page
@@ -25,7 +25,6 @@ class SalesPage(ft.Column):
         self.checkout_btn = ft.ElevatedButton("Finalizar Venta", on_click=self.checkout, style=ft.ButtonStyle(bgcolor=ft.Colors.GREEN))
         
         self.cart = []
-        self.load_products_dropdown()
         
         self.controls = [
             ft.Text("Registro de Ventas", size=24, weight="bold"),
@@ -46,8 +45,11 @@ class SalesPage(ft.Column):
     def load_products_dropdown(self):
         products = self.inventory_service.get_all_products()
         self.selected_product.options = [ft.dropdown.Option(p.id, p.name) for p in products]
-        self.update()
-
+        # Eliminada la llamada a self.update()
+    
+    def refresh_products(self):
+        self.load_products_dropdown()
+        
     def update_product_info(self, e):
         pass
 
@@ -102,7 +104,6 @@ class SalesPage(ft.Column):
             self.page.update()
             return
             
-        # Corrección: Llamada directa al método síncrono
         sale = self.sales_service.record_sale(self.cart)
         
         if sale:

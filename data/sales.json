@@ -40,5 +40,55 @@
                 "subtotal": 333.0
             }
         ]
+    },
+    {
+        "id": "71d35a5d-6323-4340-8004-8e36e5412d40",
+        "timestamp": "2025-09-09T22:56:20.008919",
+        "total_revenue": 938.0,
+        "total_cost": 23.0,
+        "total_profit": 915.0,
+        "items": [
+            {
+                "product_id": "2c102d3c-c456-4e67-b1bb-bf2c692b4c66",
+                "name": "HolaTest",
+                "quantity": 1,
+                "price": 938.0,
+                "cost": 23.0,
+                "subtotal": 938.0
+            }
+        ]
+    },
+    {
+        "id": "6557dc60-7aef-424c-8e20-073d277de547",
+        "timestamp": "2025-09-09T23:01:26.998020",
+        "total_revenue": 3430.2200000000003,
+        "total_cost": 391.21,
+        "total_profit": 3039.01,
+        "items": [
+            {
+                "product_id": "2c102d3c-c456-4e67-b1bb-bf2c692b4c66",
+                "name": "HolaTest",
+                "quantity": 2,
+                "price": 938.0,
+                "cost": 23.0,
+                "subtotal": 1876.0
+            },
+            {
+                "product_id": "c8ba5dd8-424e-408e-be8b-05efd77c4b26",
+                "name": "Tostadora",
+                "quantity": 1,
+                "price": 333.0,
+                "cost": 222.0,
+                "subtotal": 333.0
+            },
+            {
+                "product_id": "26161495-049a-4d96-90c8-5878653cf185",
+                "name": "tele",
+                "quantity": 1,
+                "price": 1221.22,
+                "cost": 123.21,
+                "subtotal": 1221.22
+            }
+        ]
     }
 ]

@@ -12,7 +12,7 @@ class ReportsPage(ft.Column):
         )
         self.sales_service = sales_service
         self.page = page
-        self.sales = self.sales_service.get_all_sales()
+        self.sales = []
         
         self.reports_text = ft.Text("Generando reporte...", size=16)
         
@@ -27,8 +27,7 @@ class ReportsPage(ft.Column):
             rows=[]
         )
         
-        # Llamar al método que carga los datos sin llamar a update()
-        self.load_sales_table_data()
+        # Eliminada la llamada a self.load_sales_table_data() del constructor
         
         self.controls = [
             ft.Text("Reportes y Historial", size=24, weight="bold"),
@@ -52,7 +51,7 @@ class ReportsPage(ft.Column):
         ]
         
     def load_sales_table_data(self):
-        """Carga los datos de la tabla sin llamar a update()"""
+        """Carga los datos de la tabla."""
         self.sales = self.sales_service.get_all_sales()
         self.sales_table.rows.clear()
         
@@ -69,7 +68,10 @@ class ReportsPage(ft.Column):
                 )
             )
 
-    def load_sales_table(self):
-        """Método público que recarga los datos y actualiza la UI"""
+    def refresh_products(self):
+        """
+        Método público para refrescar los datos. 
+        Llamado por MainView al navegar a esta página.
+        """
         self.load_sales_table_data()
-        self.update()
+        # Eliminada la llamada a self.update()
